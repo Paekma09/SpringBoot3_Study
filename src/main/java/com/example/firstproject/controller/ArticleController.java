@@ -33,6 +33,7 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
 //        System.out.println(saved.toString());
         log.info(saved.toString());
+
         return "";
     }
 }
