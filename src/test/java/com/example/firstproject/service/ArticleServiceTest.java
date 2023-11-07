@@ -84,4 +84,73 @@ class ArticleServiceTest {
         //3. 비교 및 검증
         assertEquals(expected, article);
     }
+
+    @Test
+    @Transactional
+    void update_success1() {
+        //1. 예상 데이터
+        Long id = 1L;
+        String title = "가나다라";
+        String content = "1234";
+        ArticleForm dto = new  ArticleForm(id, title, content);
+        Article expected = new Article(id, title, content);
+        //2. 실제 데이터
+        Article article = articleService.update(id, dto);
+        //3. 비교 및 검증
+        assertEquals(expected.toString(), article.toString());
+    }
+
+    @Test
+    @Transactional
+    void update_success2() {
+        //1. 예상 데이터
+        Long id = 1L;
+        String title = "AAAA";
+        String content = null;
+        ArticleForm dto = new ArticleForm(id, title, content);
+        Article expected = new Article(id, "AAAA", "1111");
+        //2. 실제 데이터
+        Article article = articleService.update(id, dto);
+        //3. 비교 및 검증
+        assertEquals(expected.toString(), article.toString());
+    }
+
+    @Test
+    @Transactional
+    void update_fail() {
+        //1. 예상 데이터
+        Long id = -1L;
+        String title = "가나다라";
+        String content = "1234";
+        ArticleForm dto = new ArticleForm(id, title, content);
+        Article expected = null;
+        //2. 실제 데이터
+        Article article = articleService.update(id, dto);
+        //3. 비교 및 검증
+        assertEquals(expected, article);
+    }
+
+    @Test
+    @Transactional
+    void delete_success() {
+        //1. 예상 데이터
+        Long id = 1L;
+        Article expected = new Article(id, "가가가가", "1111");
+        //2. 실제 데이터
+        Article article = articleService.delete(id);
+        //3. 비교 및 검증
+        assertEquals(expected.toString(), article.toString());
+    }
+
+    @Test
+    @Transactional
+    void delete_fail() {
+        //1. 예상 데이터
+        Long id = -1L;
+        Article expected = null;
+        //2. 실제 데이터
+        Article article = articleService.delete(id);
+        //3. 비교 및 검증
+        assertEquals(expected, article);
+    }
 }
